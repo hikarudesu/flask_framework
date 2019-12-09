@@ -1,0 +1,23 @@
+version: '3'
+services:
+  flask:
+    build: ./
+    volumes:
+      - "./:/app"
+    restart: always
+    ports:
+      - "5000:5000"
+  mysql:
+    restart: always
+    image: mysql:8.0.12
+    ports:
+      - "33066:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql
+      MYSQL_DATABASE: framework
+      MYSQL_USER: hikaru
+      MYSQL_PASSWORD: hikaru
+    volumes:
+      - ./.data/db/initdb:/docker-entrypoint-initdb.d
+      - ./.data/db/data:/var/lib/mysql
+      
